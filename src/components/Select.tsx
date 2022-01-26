@@ -5,14 +5,29 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { theme } from '../theme';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
+
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      maxWidth: 250
+      maxWidth: 250,
+    },
+    sx: {
+      '&::-webkit-scrollbar': {
+        width: '12px'
+      },
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: 'transparent',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#DEE1E7',
+        border: '3px solid #fff',    /* color of the scroll thumb */
+        borderRadius: '20px', 
+      }
     },
   },
 };
@@ -60,10 +75,14 @@ const  CustomSelect:React.FC<ISelectAttributes> = (text) => {
           }}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Filter items' }}
-          sx={{color: theme.palette.primary.main, '&:disabled': { opacity: 0.7 }}}
+          sx={{
+            color: theme.palette.primary.main, 
+            '&:disabled': { opacity: 0.7 },
+       
+          }}
         >
           {names.map((name) => (
-            <MenuItem key={name} value={name} sx={{borderBottom: '1px solid #dee1e7'}}>
+            <MenuItem key={name} value={name} sx={{color: '#6c6f7b'}}>
               <Checkbox checked={personName.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>

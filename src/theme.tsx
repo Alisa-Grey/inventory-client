@@ -92,7 +92,7 @@ export const theme = createTheme({
           padding: 0
         }
       }
-    }
+    },
   },
 
   palette: {

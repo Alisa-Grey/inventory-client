@@ -5,12 +5,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { theme } from '../theme';
-import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -25,51 +23,41 @@ const MenuProps = {
       },
       '&::-webkit-scrollbar-thumb': {
         backgroundColor: '#DEE1E7',
-        border: '3px solid #fff',    /* color of the scroll thumb */
+        border: '3px solid #fff', 
         borderRadius: '20px', 
       }
     },
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-];
-
 interface ISelectAttributes {
-  text: string;
+  placeholderText: string;
+  value: string[];
+  setValue: any;
+  nameArray: [];
 }
 
-const  CustomSelect:React.FC<ISelectAttributes> = (text) => {
-  const [personName, setPersonName] = React.useState<string[]>([]);
-
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+const  CustomSelect:React.FC<ISelectAttributes> = ({ placeholderText, value, setValue, nameArray }) => {
+  const placeholderStyle = {color: '#d5d6d9'}
+  const handleChange = (event: SelectChangeEvent<typeof value>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
+    setValue(
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-  const placeholderStyle = {color: '#d5d6d9'}
 
   return (
-    <div>
-      <FormControl sx={{ width: 300, color: 'blue' }}>
+      <FormControl sx={{ width: 300 }}>
         <Select
           multiple
           displayEmpty
-          value={personName}
+          value={value}
           onChange={handleChange}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <span style={placeholderStyle}>Search {text.text}</span>;
+              return <span style={placeholderStyle}>Search {placeholderText}</span>;
             }
             return selected.join(', ');
           }}
@@ -81,15 +69,15 @@ const  CustomSelect:React.FC<ISelectAttributes> = (text) => {
        
           }}
         >
-          {names.map((name) => (
-            <MenuItem key={name} value={name} sx={{color: '#6c6f7b'}}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              <ListItemText primary={name} />
+          {nameArray.map((element) => (
+            <MenuItem key={element} value={element} sx={{color: '#6c6f7b'}}>
+              <Checkbox checked={value.indexOf(element) > -1} />
+              <ListItemText primary={element} />
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+
   );
 }
 

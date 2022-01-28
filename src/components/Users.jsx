@@ -5,7 +5,7 @@ import {  GET_EMPLOYEES_REQUEST } from '../actions/types';
 
 export default function Users() {
     const dispatch = useDispatch();
-    const employees = useSelector(state => state.employees.result);
+
 
     useEffect(() => {
         dispatch({type: GET_EMPLOYEES_REQUEST})
@@ -20,13 +20,8 @@ export default function Users() {
             }}>
                 Users
             </Typography>
-        <List>
-        {
-            employees.map((employee) => 
-            <ListItem>{employee.name} {employee.lastName}</ListItem>
-            )
-        }
-        </List>
+            <iframe src="https://gifer.com/embed/Fpwe"></iframe>
+
         <Typography></Typography>
     </Container>
     )

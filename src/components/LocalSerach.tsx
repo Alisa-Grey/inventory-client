@@ -1,16 +1,21 @@
-import * as React from 'react';
 import { InputBase } from '@mui/material';
-import { theme } from '../theme';
+import { defaultTheme } from '../theme';
 import { styled } from '@mui/material/styles';
+import React from 'react';
 
-const StyledInputBase = styled(InputBase)(() => ({
-    marginRight: theme.spacing(4),
+interface ISearchAttributes {
+    placeholderText: string;
+    setParam: any;
+}
+
+export const StyledInputBase = styled(InputBase)(() => ({
+    marginRight: defaultTheme.spacing(4),
     '& .MuiInputBase-input': {
-        padding: theme.spacing(3,2),
+        padding: defaultTheme.spacing(3,2),
         border: '1px solid #dee1e7',
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: defaultTheme.shape.borderRadius,
         '&:focus': {
-            borderColor: theme.palette.primary.main
+            borderColor: defaultTheme.palette.primary.main
         },
         '&:disabled': {
             opacity: 0.7
@@ -18,10 +23,16 @@ const StyledInputBase = styled(InputBase)(() => ({
     },
 }));
 
-export default StyledInputBase;
+const LocalSearch:React.FC<ISearchAttributes> = ({ placeholderText, setParam }) => {
+    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        const {
+          target: { value },
+        } = ev;
+        setParam(value);
+      };
+    return (
+        <StyledInputBase placeholder={placeholderText} sx={{mr: 4}} onChange={handleChange}></StyledInputBase>
+    )
+}
 
-// export default function LocalSearch() {
-//     return (
-//         <StyledInputBase placeholder='Search' sx={{mr: 4}}></StyledInputBase>
-//     )
-// }
+export default LocalSearch

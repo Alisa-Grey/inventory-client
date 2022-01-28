@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material';
 import { Container } from '@mui/material';
 import { theme } from './theme'
 import Header from './components/Header/Header';
-import Items from './components/Items';
+import Storage from './components/Storage';
 import Users from './components/Users';
 import Rooms from './components/Rooms/Rooms';
 import './App.css';
@@ -16,7 +16,7 @@ function App() {
             <Header /> 
             <Container className="container">           
                 <Routes>
-                    <Route path="/items" element={<Items />}></Route> 
+                    <Route path="/storage" element={<Storage />}></Route> 
                     <Route path="/users" element={<Users />}></Route> 
                     <Route path="/rooms" element={<Rooms rooms={[]} />}></Route> 
                 </Routes>

@@ -7,15 +7,15 @@ interface IBtnProps {
   variant?: any;
 }
 
-const AddButton: React.FC<IBtnProps> = ({ children, onClick, variant }) => {
+const StyledButton: React.FC<IBtnProps> = ({ children, onClick, variant }) => {
   return (
     <Button 
       variant={variant}
       onClick={onClick}
     >
-      + {children}
+      {children}
     </Button>
   )
 }
 
-export default AddButton;
+export default StyledButton;

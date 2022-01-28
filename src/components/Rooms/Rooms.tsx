@@ -3,12 +3,11 @@ import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { List, Typography, Toolbar, Divider } from '@mui/material';
 import { GET_ROOMS_REQUEST } from "../../actions/types";
 import Room from "./RoomCard";
-import AddButton from '../AddButton';
 import LocalSearch from "../LocalSerach";
-import StyledInputBase from "../LocalSerach";
 import CustomSelect from "../Select";
 import { IRoom } from "../../types/types";
 import "../../index.css";
+import AddModal from './AddRoom';
 
 interface RoomsProps {
     rooms: IRoom[]
@@ -21,44 +20,26 @@ const Rooms: React.FC<RoomsProps> = ({rooms}) => {
 
     const [roomName, setRoomName] = React.useState<string[]>([]);
     const [ searchParam, setSearchParam ] = React.useState<string>('');
-    
-    if (roomName.length > 0) {
-        roomList = roomList.filter((item: IRoom) => roomName.includes(item.name))
-    }
 
     useEffect(() => {
         dispatch({ type: GET_ROOMS_REQUEST });
     }, [dispatch]);
 
-    const btnHandler = () => {
-        console.log('click')
+    if (roomName.length > 0) {
+        roomList = roomList.filter((item: IRoom) => roomName.includes(item.name))
     }
-
-    const handleSearch = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        let searchValue = ev.target.value.toLocaleLowerCase();
-        setSearchParam(searchValue)
-        roomList = roomList.filter((item: IRoom) => item.name.toLowerCase().includes(searchParam))
-        return roomList
-    }
+    roomList = roomList.filter((item: IRoom) => item.name.toLowerCase().includes(searchParam))
 
     return (
         <>
-            <Typography sx={{
-                mb: 4,
-                fontWeight:700,
-                fontSize:'24px',
-                lineHeight:'28px'
-            }}>
+            <Typography sx={{ mb: 4 }} variant="h1">
                 Rooms
             </Typography>
-
+            
             <Toolbar sx={{ mb: 6, px: 0 }}>
-                <AddButton variant={'contained'} onClick={btnHandler} >
-                    Add room
-                </AddButton>
+                <AddModal />
                 <Divider orientation="vertical" variant="middle" flexItem color="#dee1e7" sx={{mx: 5}}/>
-                <StyledInputBase placeholder="Search" onChange={handleSearch}/>
-                {/* <LocalSearch onChange={handleSearch}/> */}
+                <LocalSearch placeholderText="Search" setParam={setSearchParam}/>
                 <CustomSelect placeholderText="Room" nameArray={namesList} value={roomName} setValue={setRoomName} />
               </Toolbar>
 

@@ -74,7 +74,7 @@ export default function AddModal(): JSX.Element {
                 <Typography id="modal-modal-title" component="h1" variant='h1' sx={{mb: defaultTheme.spacing(8)}}>
                     Add room
                 </Typography>
-                
+               
                 {roomNames.map((name, index) => (
                   <Stack key={index}>
                     <Typography variant='body1' sx={{mb: defaultTheme.spacing(3)}}>Add Room</Typography>
@@ -121,5 +121,3 @@ export default function AddModal(): JSX.Element {
     </>
   );
 }
-
-

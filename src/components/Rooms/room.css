@@ -1,0 +1,22 @@
+.list-item {
+    position: relative;
+    flex: 1 1 30%;
+    max-width: 33.4%;
+    height: 267px;
+    margin: 0;
+    padding: 40px;
+    border-top: 1px solid #e5e7ea;
+    border-left: 1px solid #e5e7ea;
+    border-bottom: 1px solid #e5e7ea;
+    background-color: var(--light);
+}
+
+.list-item:nth-child(3n + 3), .list-item:last-child {
+    border-right: 1px solid #e5e7ea;
+}
+
+.list-item__title {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+}

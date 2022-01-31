@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, List, ListItem, Typography } from '@mui/material';
-import { GET_INVENTORIES_REQUEST } from '../actions/types'
+import { ItemActionTypes } from "../redux/actions/types";
 
 export default function Storage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({ type: GET_INVENTORIES_REQUEST });
+        dispatch({ type: ItemActionTypes.GET_ITEMS_REQUEST });
     }, [dispatch]);
     
     return (

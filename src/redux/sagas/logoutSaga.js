@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { LOGOUT } from '../actions/types';
+import { LoginActionTypes } from '../actions/types';
 
 function* logout() {
    yield localStorage.removeItem('token');
@@ -7,5 +7,5 @@ function* logout() {
 }
 
 export default function* watchLogout() {
-    yield takeEvery(LOGOUT, logout)
+    yield takeEvery(LoginActionTypes.LOGOUT, logout)
 }

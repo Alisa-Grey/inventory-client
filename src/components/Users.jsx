@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Container, Typography, List, ListItem} from '@mui/material';
-import {  GET_EMPLOYEES_REQUEST } from '../actions/types';
+import { UserActionTypes } from "../redux/actions/types";
 
 export default function Users() {
     const dispatch = useDispatch();
-
-
     useEffect(() => {
-        dispatch({type: GET_EMPLOYEES_REQUEST})
+        dispatch({type: UserActionTypes.GET_USERS_REQUEST})
     }, [dispatch])
 
     return (

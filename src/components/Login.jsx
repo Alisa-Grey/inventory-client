@@ -7,7 +7,7 @@ import {
     Button,
     TextField,
 } from '@mui/material';
-import { LOGIN_REQUEST } from "../actions/types";
+import { LOGIN_REQUEST } from "../redux/actions/types";
 
 export default function LoginPage() {
     const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { List, Typography, Toolbar, Divider } from '@mui/material';
-import { GET_ROOMS_REQUEST } from "../../actions/types";
+import { RoomActionTypes } from "../../redux/actions/types";
 import Room from "./RoomCard";
 import LocalSearch from "../LocalSerach";
 import CustomSelect from "../Select";
@@ -15,14 +15,14 @@ interface RoomsProps {
 
 const Rooms: React.FC<RoomsProps> = ({rooms}) => {
     const dispatch = useDispatch();
-    let roomList = useSelector((state: RootStateOrAny) => state.rooms.result);
+    let roomList = useSelector((state: RootStateOrAny) => state.rooms.rooms);
     let namesList = roomList.map((room: { name: string; }) => room.name)
 
     const [roomName, setRoomName] = React.useState<string[]>([]);
     const [ searchParam, setSearchParam ] = React.useState<string>('');
 
     useEffect(() => {
-        dispatch({ type: GET_ROOMS_REQUEST });
+        dispatch({ type: RoomActionTypes.GET_ROOMS_REQUEST });
     }, [dispatch]);
 
     if (roomName.length > 0) {

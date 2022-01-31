@@ -1,28 +1,23 @@
 import * as React from 'react';
-import { ADD_ROOM_REQUEST } from '../../actions/types';
 import StyledButton from '../StyledButton';
 import { StyledInputBase } from '../LocalSerach';
 import { defaultTheme, secondaryTheme } from '../../theme';
-import { Box, Typography, Button, Modal, Stack, Input } from '@mui/material';
+import { Box, Typography, Button, Modal, Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
-import RoomInput from './RoomInput';
-import { useDispatch } from 'react-redux';
+import { IconButton } from '@mui/material';
+import RemoveIcon from '../Icons/RemoveIcon'
+import { useAppDispatch, useTypedSelector } from '../../redux/hooks/hooks';
+import { RoomActionTypes } from '../../redux/actions/types';
 
 export default function AddModal(): JSX.Element {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const { rooms, loading } = useTypedSelector(state => state.rooms);
+
     const [open, setOpen] = React.useState(false);
     const [roomNames, setRoomNames] = React.useState([''])
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    // const handleChange = (index: number) => (value: string) => {
-    //   setRoomNames((roomNames) => {
-    //     const roomList = [...roomNames];
-    //     roomList[index] = value;
-    //     return roomList;
-    //   });
-    // };
 
     const handleChange = (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, index: number) => {
       const { target: { value }, } = ev;
@@ -33,6 +28,7 @@ export default function AddModal(): JSX.Element {
 
     const addInput = () => {
       setRoomNames([...roomNames, '']);
+      dispatch({type: RoomActionTypes.ADD_ROOM_REQUEST, payload: roomNames})
     }
 
     const removeInput = (index: number) => () => {
@@ -43,9 +39,9 @@ export default function AddModal(): JSX.Element {
         });
     }
 
-    // TODO: translate sagas etc. to TS, add sagas and dispathers
     const handleSave = () => {
-      dispatch({ type: ADD_ROOM_REQUEST, data: { roomNames } })
+      console.log(roomNames);
+
   }
 
   return (
@@ -76,13 +72,24 @@ export default function AddModal(): JSX.Element {
                 </Typography>
                
                 {roomNames.map((name, index) => (
-                  <Stack key={index}>
+                  <Stack key={index} sx={{mb: 3}}>
                     <Typography variant='body1' sx={{mb: defaultTheme.spacing(3)}}>Add Room</Typography>
-                    <Input placeholder='Room Name' onChange={(ev) => handleChange(ev, index)}/>
-                    {/* <StyledInputBase sx={{width: '100%', mb: 3}} placeholder='Room Name' onChange={handleChange(index)}/> */}
-                    {
-                      roomNames.length !== 1 && <Button onClick={removeInput(index)}>Remove</Button>
-                    }
+                    <Box sx={{display: 'flex', flexDirection: 'row-reverse', alignItems: 'center'}}>
+                      <StyledInputBase sx={{width: '100%', mr: 0}} placeholder='Room Name' value={name} onChange={(ev) => handleChange(ev, index)}/>
+                      {
+                        roomNames.length !== 1 && 
+                        <IconButton 
+                          sx={{
+                            width: 'fit-content',
+                            mr: '17px',
+                            p: 0
+                          }}
+                          onClick={removeInput(index)}
+                        >
+                          <RemoveIcon />
+                        </IconButton>
+                      }
+                    </Box>
                   </Stack>
                 ))}
                                 

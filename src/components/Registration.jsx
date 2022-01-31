@@ -9,7 +9,7 @@ import {
     Checkbox,
     FormControlLabel
 } from '@mui/material';
-import { REGISTER_REQUEST } from "../actions/types";
+import { REGISTER_REQUEST } from "../redux/actions/types";
 
 export default function Registration() {
   const dispatch = useDispatch();

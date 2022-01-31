@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { GET_INVENTORIES_REQUEST, GET_INVENTORIES_RESULT } from '../../actions/types';
+import { ItemActionTypes } from '../../actions/types';
 
-function* fetchInventories() {
+function* fetchItems() {
     let response =  yield fetch('http://localhost:5000/api/inventories', {
         method: 'GET',
         headers: {
@@ -10,9 +10,9 @@ function* fetchInventories() {
         }
     })
     .then(response => response.json());
-    yield put({type: GET_INVENTORIES_RESULT, response})
+    yield put({type: ItemActionTypes.GET_ITEMS_RESULT, response})
 }
 
-export default function* watchFetchInventories() {
-    yield takeEvery(GET_INVENTORIES_REQUEST, fetchInventories)
+export default function* watchFetchItems() {
+    yield takeEvery(ItemActionTypes.GET_ITEMS_REQUEST, fetchItems)
 }

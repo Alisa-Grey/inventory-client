@@ -1,9 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { 
-    GET_EMPLOYEES_REQUEST, GET_EMPLOYEES_RESULT,
-} from '../../actions/types';
+import { UserActionTypes } from '../../actions/types';
 
-function* fetchEmployees() {
+function* fetchUsers() {
     let response = yield fetch('http://localhost:5000/api/employees/', {
         method: 'GET',
         headers: {
@@ -13,9 +11,9 @@ function* fetchEmployees() {
     })
     .then(response => response.json());
 
-    yield put({type: GET_EMPLOYEES_RESULT, response});
+    yield put({type: UserActionTypes.GET_USERS_RESULT, response});
 };
 
 export default function* watchFetchEmployees() {
-    yield takeEvery(GET_EMPLOYEES_REQUEST, fetchEmployees)
+    yield takeEvery(UserActionTypes.GET_USERS_REQUEST, fetchUsers)
 }
